@@ -19,10 +19,14 @@ import com.example.coach.R;
 import com.example.coach.contract.ICalculView;
 import com.example.coach.presenter.CalculPresenter;
 
+/**
+ * Activity qui permet le calcul de l'img
+ */
 public class MainActivity extends AppCompatActivity implements ICalculView {
 
     private EditText txtPoids, txtTaille, txtAge;
     private RadioButton rdHomme;
+    private RadioButton rdFemme;
     private TextView lblIMG;
     private ImageView imgSmiley;
     private Button btnCalc;
@@ -41,22 +45,32 @@ public class MainActivity extends AppCompatActivity implements ICalculView {
         init();
     }
 
+    /**
+     * Traitements nécessaires dès la création de l'activity
+     */
     private void init(){
         chargeObjetsGraphiques();
         presenter = new CalculPresenter(this);
         btnCalc.setOnClickListener(v -> btnCalc_clic());
     }
 
+    /**
+     * Récupération des objets graphiques
+     */
     private void chargeObjetsGraphiques(){
         txtPoids = findViewById(R.id.txtPoids);
         txtTaille = findViewById(R.id.txtTaille);
         txtAge = findViewById(R.id.txtAge);
         rdHomme = findViewById(R.id.rdHomme);
+        rdFemme = findViewById(R.id.rdFemme);
         lblIMG = findViewById(R.id.lblResultat);
         imgSmiley = findViewById(R.id.imgSmiley);
         btnCalc = findViewById(R.id.btnCalc);
     }
 
+    /**
+     * Traitements réalisés lors du clic sur le bouton Calculer
+     */
     private void btnCalc_clic(){
         Integer poids = 0, taille = 0, age = 0, sexe = 0;
         try {
@@ -76,6 +90,13 @@ public class MainActivity extends AppCompatActivity implements ICalculView {
         }
     }
 
+    /**
+     * Méthode permettant l'affichage du résultat du calcul de l'img
+     * @param image nom du fichier drawable pour le smiley
+     * @param img valeur de l'img calculé
+     * @param message information textuelle correspondant à l'img
+     * @param normal vrai si l'img est normal
+     */
     @Override
     public void afficherResultat(String image, double img, String message, boolean normal) {
         int imageId = getResources().getIdentifier(image, "drawable", getPackageName());
