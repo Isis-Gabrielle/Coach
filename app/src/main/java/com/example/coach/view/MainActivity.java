@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements ICalculView {
      */
     private void init(){
         chargeObjetsGraphiques();
-        presenter = new CalculPresenter(this);
+        presenter = new CalculPresenter(this, this);
+        presenter.chargerProfil();
         btnCalc.setOnClickListener(v -> btnCalc_clic());
     }
 
@@ -109,5 +110,24 @@ public class MainActivity extends AppCompatActivity implements ICalculView {
         String texte = String.format("%.01f", img) + " : IMG " + message;
         lblIMG.setText(texte);
         lblIMG.setTextColor(normal ? Color.GREEN : Color.RED);
+    }
+
+    /**
+     * Méthode permettant l'affichage des informations de base
+     * @param poids
+     * @param taille
+     * @param age
+     * @param sexe
+     */
+    @Override
+    public void remplirChamps(Integer poids, Integer taille, Integer age, Integer sexe) {
+        txtPoids.setText(poids.toString());
+        txtTaille.setText(taille.toString());
+        txtAge.setText(age.toString());
+        if (sexe == 1){
+            rdHomme.setChecked(true);
+        }else{
+            rdFemme.setChecked(true);
+        }
     }
 }
